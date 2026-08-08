@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mobile Access & Share - Exellar.LLP Document Upload Portal</title>
+  <meta name="description" content="Quick Access & Mobile Share Links for Exellar.LLP Document Upload Portal.">
+  <meta name="theme-color" content="#0B2545">
+
+  <link rel="icon" type="image/jpg" href="assets/images/exellar-logo.jpg">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body class="bg-[#F8FAFC] text-slate-800 font-sans p-4 sm:p-8 min-h-screen flex items-center justify-center">
+
+  <div class="max-w-md w-full bg-white rounded-3xl shadow-xl border border-slate-200 p-6 sm:p-8 text-center">
+    
+    <!-- Logo & Brand Header -->
+    <div class="flex flex-col items-center justify-center mb-6">
+      <img src="assets/images/exellar-logo.jpg" onerror="this.onerror=null; this.src='exellar-logo.jpg';" alt="Exellar Logo" class="h-16 w-auto object-contain rounded-xl mb-3 border border-slate-200">
+      <h1 class="text-xl font-bold text-[#0B2545]">Exellar.LLP Portal</h1>
+      <p class="text-xs text-slate-500 font-semibold">Mobile & Device Quick Access</p>
+    </div>
+
+    <!-- QR Code Section -->
+    <div class="bg-[#F0F7FF] border border-[#0077C6]/20 rounded-2xl p-4 mb-6 flex flex-col items-center">
+      <p class="text-xs font-bold text-[#0B2545] uppercase tracking-wider mb-2">Scan QR Code with Phone Camera</p>
+      <div class="bg-white p-2.5 rounded-xl border border-slate-200 shadow-sm mb-3">
+        <img id="share-page-qr" src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=https%3A%2F%2Fexellar-portal.vercel.app" alt="Mobile Access QR Code" class="w-44 h-44 object-contain">
+      </div>
+      <p class="text-[11px] text-slate-600">Scan to open the Exellar Document Upload Portal instantly!</p>
+    </div>
+
+    <!-- Production Vercel Link Card -->
+    <div class="bg-slate-50 rounded-2xl p-4 border border-slate-200 text-left mb-4">
+      <div class="flex items-center justify-between mb-1.5">
+        <span class="text-xs font-bold text-[#0B2545] uppercase tracking-wide">Production Portal Link</span>
+        <span class="text-[10px] bg-emerald-100 text-emerald-700 font-bold px-2 py-0.5 rounded-full">Live Vercel</span>
+      </div>
+      
+      <!-- Clickable Hyperlink -->
+      <a id="production-link" href="https://exellar-portal.vercel.app" target="_blank" rel="noopener noreferrer" class="font-mono text-sm text-[#0077C6] font-bold hover:underline break-all block mb-3">
+        https://exellar-portal.vercel.app
+      </a>
+
+      <div class="flex items-center gap-2">
+        <button onclick="copyLink('https://exellar-portal.vercel.app')" class="flex-1 bg-[#0077C6] hover:bg-[#005FA3] text-white py-2.5 px-3 rounded-xl text-xs font-bold transition flex items-center justify-center gap-1.5">
+          <i data-lucide="copy" class="w-4 h-4"></i>
+          <span>Copy Link</span>
+        </button>
+
+        <a id="production-open-btn" href="https://exellar-portal.vercel.app" target="_blank" class="flex-1 bg-[#0B2545] hover:bg-slate-900 text-white py-2.5 px-3 rounded-xl text-xs font-bold transition flex items-center justify-center gap-1.5">
+          <i data-lucide="external-link" class="w-4 h-4"></i>
+          <span>Open Portal</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- Current Environment Link Card -->
+    <div class="bg-slate-50 rounded-2xl p-4 border border-slate-200 text-left mb-6">
+      <div class="flex items-center justify-between mb-1.5">
+        <span class="text-xs font-bold text-[#0B2545] uppercase tracking-wide">Current Page URL</span>
+        <span class="text-[10px] bg-sky-100 text-sky-700 font-bold px-2 py-0.5 rounded-full">Active</span>
+      </div>
+
+      <!-- Clickable Hyperlink -->
+      <a id="current-link" href="#" target="_blank" rel="noopener noreferrer" class="font-mono text-sm text-[#0077C6] font-bold hover:underline break-all block mb-3">
+        Loading...
+      </a>
+
+      <div class="flex items-center gap-2">
+        <button id="current-copy-btn" onclick="copyCurrentLink()" class="flex-1 bg-slate-200 hover:bg-slate-300 text-slate-800 py-2.5 px-3 rounded-xl text-xs font-bold transition flex items-center justify-center gap-1.5">
+          <i data-lucide="copy" class="w-4 h-4"></i>
+          <span>Copy Link</span>
+        </button>
+
+        <a id="current-open-btn" href="index.html" class="flex-1 bg-[#0077C6] hover:bg-[#005FA3] text-white py-2.5 px-3 rounded-xl text-xs font-bold transition flex items-center justify-center gap-1.5">
+          <i data-lucide="home" class="w-4 h-4"></i>
+          <span>Home Page</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="hidden bg-slate-900 text-white text-xs font-bold px-4 py-2.5 rounded-xl shadow-lg mb-4 text-center">
+      Link copied to clipboard!
+    </div>
+
+    <a href="index.html" class="inline-flex items-center gap-2 text-xs font-bold text-[#0077C6] hover:underline">
+      <i data-lucide="arrow-left" class="w-4 h-4"></i> Return to Document Upload Portal
+    </a>
+
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      if (typeof lucide !== 'undefined') lucide.createIcons();
+
+      const targetUrl = window.location.origin && window.location.origin !== 'null' ? window.location.origin : 'https://exellar-portal.vercel.app';
+      const qrImage = document.getElementById('share-page-qr');
+      if (qrImage) {
+        qrImage.src = `https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=${encodeURIComponent(targetUrl)}`;
+      }
+
+      const currentLink = document.getElementById('current-link');
+      if (currentLink) {
+        currentLink.href = targetUrl;
+        currentLink.textContent = targetUrl;
+      }
+    });
+
+    function copyLink(text) {
+      navigator.clipboard.writeText(text).then(() => {
+        const toast = document.getElementById('toast');
+        if (toast) {
+          toast.classList.remove('hidden');
+          setTimeout(() => toast.classList.add('hidden'), 2500);
+        }
+      });
+    }
+
+    function copyCurrentLink() {
+      const currentLink = document.getElementById('current-link');
+      if (currentLink && currentLink.href) {
+        copyLink(currentLink.href);
+      }
+    }
+  </script>
+</body>
+</html>
