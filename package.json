@@ -1,0 +1,11 @@
+{
+  "name": "exellar-portal",
+  "private": true,
+  "version": "1.0.0",
+  "scripts": {
+    "build": "node scripts/generate-exellar-config.js"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.54.0"
+  }
+}
